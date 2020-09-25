@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="#C1000000">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <pl.droidsonroids.gif.GifImageView
+            android:elevation="15dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/loading" />
+        <TextView
+            android:id="@+id/progressText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please wait"
+            android:layout_marginRight="30dp"
+            android:textAlignment="center"
+            android:maxWidth="250dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="22dp"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:id="@+id/shortdesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hi"
+            android:layout_marginRight="30dp"
+            android:visibility="gone"
+            android:textAlignment="center"
+            android:maxWidth="250dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="15dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/lightcolorPrimary"
+            />
+    </LinearLayout>
+
+
+
+</RelativeLayout>
