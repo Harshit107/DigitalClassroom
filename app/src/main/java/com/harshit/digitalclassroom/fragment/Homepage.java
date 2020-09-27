@@ -10,40 +10,23 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-import com.harshit.digitalclassroom.Adapter.TaskAdapter;
-import com.harshit.digitalclassroom.Config.Config;
+import com.harshit.digitalclassroom.Adapter.ClassAdapterStudent;
 import com.harshit.digitalclassroom.R;
-import com.harshit.digitalclassroom.utils.SharedPreferenceValue;
-import com.harshit.digitalclassroom.utils.TaskList;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.harshit.digitalclassroom.model.ClassList;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Homepage extends Fragment {
 
     Activity activity;
     Context context;
-    ArrayList<TaskList> taskLists ;
-    TaskAdapter taskAdapter;
+    ClassAdapterStudent classAdapterStudent;
+    ArrayList<ClassList> classLists;
     RecyclerView homeRecyclear;
 
 
@@ -77,17 +60,17 @@ public class Homepage extends Fragment {
 
         homeRecyclear.setLayoutManager(new LinearLayoutManager(context));
         homeRecyclear.setHasFixedSize(true);
-        taskLists =  new ArrayList<>();
+        classLists =  new ArrayList<>();
         loadData();
 
     }
 
     public void loadData() {
-        taskLists.clear();
+        classLists.clear();
 
         for(int i =0; i<20; i++) {
-            taskLists.add(new TaskList(String.valueOf(i),String.valueOf(i),String.valueOf(i)));
-            taskAdapter = new TaskAdapter(context,activity,taskLists);
+            classLists.add(new ClassList(String.valueOf(i),String.valueOf(i),String.valueOf(i),String.valueOf(i),String.valueOf(i)));
+            classAdapterStudent = new ClassAdapterStudent(activity,context,classLists);
             setAdapter();
         }
 
@@ -154,8 +137,8 @@ public class Homepage extends Fragment {
 
     }
     public void setAdapter(){
-        homeRecyclear.setAdapter(taskAdapter);
-        taskAdapter.notifyDataSetChanged();
+        homeRecyclear.setAdapter(classAdapterStudent);
+        classAdapterStudent.notifyDataSetChanged();
     }
 
 

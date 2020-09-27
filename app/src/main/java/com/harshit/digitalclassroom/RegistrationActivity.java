@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 import com.harshit.digitalclassroom.Config.Config;
+import com.harshit.digitalclassroom.utils.IsNetwork;
 import com.harshit.digitalclassroom.utils.SharedPreferenceValue;
 
 import org.json.JSONException;
@@ -31,6 +33,8 @@ import org.json.JSONObject;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+
+import es.dmoral.toasty.Toasty;
 
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -53,6 +57,8 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         initializeGUI();
+        if(!IsNetwork.isOnline(getApplicationContext()))
+            snakeBar("Connection not available",findViewById(android.R.id.content).getRootView());
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +68,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 final String inputPw = password.getText().toString().trim();
                 final String inputEmail = email.getText().toString().trim();
                 final String cnfPassword = cnf_password.getText().toString().trim();
-
+                if(!IsNetwork.isOnline(getApplicationContext())) {
+                    snakeBar("Connection not available", view);
+                    return;
+                }
                 if(validateInput(inputName, inputPw, inputEmail,cnfPassword))
                          registerUser(inputName, inputPw, inputEmail);
 
@@ -76,6 +85,10 @@ public class RegistrationActivity extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!IsNetwork.isOnline(getApplicationContext())) {
+                    snakeBar("Connection not available", view);
+                    return;
+                }
                 startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
             }
         });
@@ -135,7 +148,15 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressbar.setVisibility(View.GONE);
+                NetworkResponse networkResponse = error.networkResponse;
+
+            if (networkResponse != null) {
+                Log.d("Error Status",String.valueOf(networkResponse.statusCode));
                 parseVolleyError(error);
+            }
+            else
+                Toasty.error(getApplicationContext()," Internal server error ",Toasty.LENGTH_LONG,true).show();
+
             }
         });
 
@@ -179,6 +200,7 @@ public class RegistrationActivity extends AppCompatActivity {
 //    vollyerror
     public void parseVolleyError(VolleyError error) {
         try {
+
             progressbar.setVisibility(View.GONE);
             String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
             JSONObject data = new JSONObject(responseBody);

@@ -21,13 +21,17 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.harshit.digitalclassroom.Config.Config;
+import com.harshit.digitalclassroom.utils.IsNetwork;
 import com.harshit.digitalclassroom.utils.SharedPreferenceValue;
+import com.harshit.digitalclassroom.utils.SnackBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import es.dmoral.toasty.Toasty;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -52,6 +56,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                if(!IsNetwork.isOnline(getApplicationContext())) {
+                    SnackBar.show("Connection not available", view,getApplicationContext());
+                    return;
+                }
                 String inEmail = email.getText().toString();
                 String inPassword = password.getText().toString();
 
@@ -116,9 +124,11 @@ public class LoginActivity extends AppCompatActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+
                             progressbar.setVisibility(View.GONE);
                             VolleyLog.e("Error: ", error.toString());
                             Log.d("loginErrorVolly",error.toString());
+                            Toasty.error(getApplicationContext(),"Invalid user id or password").show();
                         }
                     });
             requestQueue.add(request_json);

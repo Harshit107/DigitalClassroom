@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    app:cardElevation="20dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="10dp">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:elevation="10dp"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/class_main_relative_layout"
+            android:layout_width="match_parent"
+            android:background="@drawable/classview10"
+            android:layout_height="match_parent"
+            >
+            <View
+                android:background="#7E020202"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent" />
+            <RelativeLayout
+                android:id="@+id/classRelative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/class_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textStyle="bold"
+                    android:layout_toLeftOf="@id/textViewOptions"
+                    android:text="Class Name"
+                    android:textColor="@color/white"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:id="@+id/textViewOptions"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:text="&#8942;"
+                    android:textAppearance="?android:textAppearanceLarge"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/class_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/classRelative"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="30dp"
+                android:text="Class Description"
+                android:textColor="@color/white" />
+
+
+            <LinearLayout
+                android:id="@+id/pic_linear"
+                android:layout_width="40dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:layout_height="70dp"
+                android:layout_alignParentBottom="true"
+                 >
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/class_pic"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/logo" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/teacher_name"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_alignParentBottom="true"
+
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toRightOf="@id/pic_linear"
+                android:gravity="center"
+                android:text="Teacher name"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+</androidx.cardview.widget.CardView>

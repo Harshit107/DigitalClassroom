@@ -2,6 +2,7 @@ package com.harshit.digitalclassroom;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -40,7 +41,6 @@ public class SplashScrActivity extends AppCompatActivity {
             public void onAnimationEnd(Animation animation) {
                 logoSplash.startAnimation(anim2);
                 logoSplash.setVisibility(View.GONE);
-
                 logoWhite.startAnimation(anim3);
                 chmaraTech.startAnimation(anim3);
                 anim3.setAnimationListener(new Animation.AnimationListener() {
@@ -48,17 +48,25 @@ public class SplashScrActivity extends AppCompatActivity {
                     public void onAnimationStart(Animation animation) {
 
                     }
-
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         logoWhite.setVisibility(View.VISIBLE);
                         chmaraTech.setVisibility(View.VISIBLE);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                                if(SharedPreferenceValue.getToken(getApplicationContext()).isEmpty())
+                                    startActivity(new Intent(SplashScrActivity.this,RegistrationActivity.class));
+                                else
+                                    startActivity(new Intent(SplashScrActivity.this,MainActivity.class));
 
-                        finish();
-                        if(SharedPreferenceValue.getToken(getApplicationContext()).isEmpty())
-                            startActivity(new Intent(SplashScrActivity.this,RegistrationActivity.class));
-                        else
-                            startActivity(new Intent(SplashScrActivity.this,MainActivity.class));
+                            }
+                        },1000);
+
+
+
+
                     }
 
                     @Override
@@ -87,7 +95,7 @@ public class SplashScrActivity extends AppCompatActivity {
         logoSplash = findViewById(R.id.ivLogoSplash);
         logoWhite = findViewById(R.id.ivLogoWhite);
         chmaraTech = findViewById(R.id.ivCHTtext);
-        anim1 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.rotate);
+        anim1 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.zoomout);
         anim2 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fadeout);
         anim3 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fadein);
     }
