@@ -200,7 +200,7 @@ public class RegistrationActivity extends AppCompatActivity {
 //    vollyerror
     public void parseVolleyError(VolleyError error) {
         try {
-
+            Log.d("Errorresponsecode",String.valueOf(error.networkResponse.statusCode));
             progressbar.setVisibility(View.GONE);
             String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
             JSONObject data = new JSONObject(responseBody);

@@ -2,8 +2,8 @@ package com.harshit.digitalclassroom.Config;
 
 public class Config {
 
-//    public static final String API_KEY = "https://harshit-taskhub.herokuapp.com/";
-    public static final String API_KEY = "http://192.168.0.8:3000/";
+    public static final String API_KEY = "https://digitalclassroom.herokuapp.com/";
+//    public static final String API_KEY = "http://192.168.0.8:3000/";
 
     public static final String CREATE_USER = API_KEY+"users/create";        //POST REQUEST
     public static final String LOGIN = API_KEY+"users/login";               //POSt

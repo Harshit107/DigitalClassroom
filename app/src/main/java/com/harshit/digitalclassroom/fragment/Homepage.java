@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.harshit.digitalclassroom.Adapter.ClassAdapterStudent;
 import com.harshit.digitalclassroom.R;
 import com.harshit.digitalclassroom.model.ClassList;
@@ -28,6 +30,7 @@ public class Homepage extends Fragment {
     ClassAdapterStudent classAdapterStudent;
     ArrayList<ClassList> classLists;
     RecyclerView homeRecyclear;
+    private ShimmerFrameLayout mShimmerViewContainer;
 
 
 
@@ -54,6 +57,9 @@ public class Homepage extends Fragment {
 
         homeRecyclear = activity.findViewById(R.id.home_task_recycle);
         //filter_tv = activity.findViewById(R.id.text_filter);
+        mShimmerViewContainer = activity.findViewById(R.id.shimmer_view_container);
+        mShimmerViewContainer.startShimmerAnimation();
+        //homeRecyclear.addItemDecoration(new MyDE(this, LinearLayoutManager.VERTICAL, 16));
 
 
 
