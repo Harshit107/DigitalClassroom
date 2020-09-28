@@ -67,14 +67,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getResources().getColor(android.R.color.holo_red_light)
         );
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Toast.makeText(getApplicationContext(),"Paged Refreshed",Toast.LENGTH_LONG).show();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-
-        });
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                swipeRefreshLayout.setRefreshing(true);
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.container, new Homepage(getApplicationContext(),MainActivity.this))
+//                        .addToBackStack(null)
+//                        .commit();
+//            }
+//
+//        });
 
         final String option[] = {"Student", "Teacher"};
 

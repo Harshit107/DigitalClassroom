@@ -1,7 +1,9 @@
 package com.harshit.digitalclassroom.fragment;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,7 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +24,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.harshit.digitalclassroom.Adapter.ClassAdapterStudent;
 import com.harshit.digitalclassroom.R;
 import com.harshit.digitalclassroom.model.ClassList;
-
 import java.util.ArrayList;
-
 public class Homepage extends Fragment {
 
     Activity activity;
@@ -31,6 +33,7 @@ public class Homepage extends Fragment {
     ArrayList<ClassList> classLists;
     RecyclerView homeRecyclear;
     private ShimmerFrameLayout mShimmerViewContainer;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
 
 
@@ -53,22 +56,33 @@ public class Homepage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView filter_tv;
-
-        homeRecyclear = activity.findViewById(R.id.home_task_recycle);
-        //filter_tv = activity.findViewById(R.id.text_filter);
-        mShimmerViewContainer = activity.findViewById(R.id.shimmer_view_container);
+        if(activity == null){
+           return;
+        }
+        initilize();
         mShimmerViewContainer.startShimmerAnimation();
-        //homeRecyclear.addItemDecoration(new MyDE(this, LinearLayoutManager.VERTICAL, 16));
-
-
-
-
         homeRecyclear.setLayoutManager(new LinearLayoutManager(context));
         homeRecyclear.setHasFixedSize(true);
         classLists =  new ArrayList<>();
         loadData();
+        stopRefreshing();
 
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mSwipeRefreshLayout.setRefreshing(true);
+                stopRefreshing();
+            }
+        });
+
+
+
+    }
+
+    private void initilize() {
+        homeRecyclear = activity.findViewById(R.id.home_task_recycle);
+        mSwipeRefreshLayout = activity.findViewById(R.id.swipeRefresh);
+        mShimmerViewContainer = activity.findViewById(R.id.shimmer_view_container);
     }
 
     public void loadData() {
@@ -145,6 +159,18 @@ public class Homepage extends Fragment {
     public void setAdapter(){
         homeRecyclear.setAdapter(classAdapterStudent);
         classAdapterStudent.notifyDataSetChanged();
+    }
+
+    public void stopRefreshing(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mShimmerViewContainer.setVisibility(View.GONE);
+                mShimmerViewContainer.stopShimmerAnimation();
+                mSwipeRefreshLayout.setRefreshing(false);
+
+            }
+        },2000);
     }
 
 

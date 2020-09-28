@@ -10,16 +10,7 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
-<!--    <TextView-->
-<!--        android:id="@+id/text_filter"-->
-<!--        android:text="Recently Updated"-->
-<!--        android:textSize="20dp"-->
-<!--        android:background="@color/colorPrimary"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:padding="5dp"-->
-<!--        android:layout_height="500dp"-->
-<!--        />-->
+
 
     <!-- TODO: Update blank fragment layout -->
         <com.facebook.shimmer.ShimmerFrameLayout
@@ -31,6 +22,7 @@
             shimmer:duration="800">
 
             <LinearLayout
+                android:id="@+id/recycler_animation_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
